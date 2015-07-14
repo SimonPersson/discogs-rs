@@ -5,3 +5,5 @@ authors = ["Simon Persson <simon@flaskpost.org>"]
 
 [dependencies]
 ease = "*"
+serde = "*"
+serde_macros = "*"
