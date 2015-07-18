@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Simon Persson <simon@flaskpost.org>"]
 
 [dependencies]
-ease = "*"
-serde = "*"
-serde_macros = "*"
+rustc-serialize = "*"
+
+[dependencies.ease]
+git = "https://github.com/SimonPersson/ease.git"
