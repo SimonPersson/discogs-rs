@@ -1,4 +1,4 @@
-use super::Discogs;
+use super::{Discogs, SEARCH_URL};
 use ease::{RestClient, UserAgent, Url};
 
 pub enum SearchType {
@@ -9,7 +9,7 @@ pub enum SearchType {
 }
 
 pub struct Search<'a> {
-    url: &'a Url,
+    url: Url,
     token: &'a str,
     user_agent: &'a str,
     params: Vec<(&'a str, &'a str)>
@@ -124,7 +124,7 @@ impl<'a> Search<'a> {
 impl<'a, 'b> Discogs<'a> where 'a: 'b {
     pub fn search(&'a mut self) -> Search<'b> {
         Search {
-            url: &self.search_url,
+            url: Url::parse(SEARCH_URL).ok().expect("Could not parse search url."),
             token: self.token,
             user_agent: self.user_agent,
             params: Vec::new()

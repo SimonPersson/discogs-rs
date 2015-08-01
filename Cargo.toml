@@ -5,6 +5,4 @@ authors = ["Simon Persson <simon@flaskpost.org>"]
 
 [dependencies]
 rustc-serialize = "*"
-
-[dependencies.ease]
-git = "https://github.com/SimonPersson/ease.git"
+ease = "*"
