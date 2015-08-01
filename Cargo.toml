@@ -6,3 +6,4 @@ authors = ["Simon Persson <simon@flaskpost.org>"]
 [dependencies]
 rustc-serialize = "*"
 ease = "*"
+lazy_static = "*"

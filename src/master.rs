@@ -1,5 +1,5 @@
 use super::{Discogs, MASTERS_URL};
-use ease::{RestClient, UserAgent, Url};
+use ease::{RestClient, UserAgent};
 
 #[derive(RustcDecodable, Debug)]
 struct Video {
@@ -59,10 +59,9 @@ pub struct MasterRelease {
 
 impl<'a> Discogs<'a> {
     pub fn master_release(&self, master_id: u32) -> Result<MasterRelease, String> {
-        RestClient::new(Url::parse(&*format!("{}/{}", MASTERS_URL, master_id))
-                             .ok()
-                             .expect("Could not parse masters url.")
-                        )
+        let mut url = MASTERS_URL.clone();
+        url.path_mut().expect("Couldn't get masters url path.").push(format!("{}", master_id));
+        RestClient::new(url)
             .param("token", self.token)
             .header(UserAgent(self.user_agent.to_string()))
             .get_json_as::<MasterRelease>()
