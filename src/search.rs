@@ -134,48 +134,48 @@ impl<'a, 'b> Discogs<'a> where 'a: 'b {
 
 #[derive(RustcDecodable, Debug)]
 pub struct Urls {
-    next: Option<String>,
-    last: Option<String>,
+    pub next: Option<String>,
+    pub last: Option<String>,
 }
 
 #[derive(RustcDecodable, Debug)]
 pub struct Community {
-    have: u32,
-    want: u32,
+    pub have: u32,
+    pub want: u32,
 }
 
 #[derive(Debug)]
 pub struct SearchResultElement {
-    style: Option<Vec<String>>,
-    format: Option<Vec<String>>,
-    country: Option<String>,
-    barcode: Option<Vec<String>>,
-    community: Option<Community>,
-    label: Option<Vec<String>>,
-    catno: Option<String>,
-    year: Option<String>,
-    genre: Option<Vec<String>>,
-    thumb: String,
-    uri: String,
-    title: String,
-    resource_url: String,
-    type_: String,
-    id: u32,
+    pub style: Option<Vec<String>>,
+    pub format: Option<Vec<String>>,
+    pub country: Option<String>,
+    pub barcode: Option<Vec<String>>,
+    pub community: Option<Community>,
+    pub label: Option<Vec<String>>,
+    pub catno: Option<String>,
+    pub year: Option<String>,
+    pub genre: Option<Vec<String>>,
+    pub thumb: String,
+    pub uri: String,
+    pub title: String,
+    pub resource_url: String,
+    pub type_: String,
+    pub id: u32,
 }
 
 #[derive(RustcDecodable, Debug)]
 pub struct Pagination {
-    per_page: Option<u32>,
-    items: u32,
-    page: u32,
-    urls: Urls,
-    pages: u32,
+    pub per_page: Option<u32>,
+    pub items: u32,
+    pub page: u32,
+    pub urls: Urls,
+    pub pages: u32,
 }
 
 #[derive(RustcDecodable, Debug)]
 pub struct SearchResult {
-    pagination: Pagination,
-    results: Option<Vec<SearchResultElement>>,
+    pub pagination: Pagination,
+    pub results: Option<Vec<SearchResultElement>>,
 }
 
 

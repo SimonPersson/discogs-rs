@@ -2,59 +2,59 @@ use super::{Discogs, MASTERS_URL};
 use ease::{RestClient, UserAgent};
 
 #[derive(RustcDecodable, Debug)]
-struct Video {
-    duration: u32,
-    description: String, 
-    embed: bool,
-    uri: String,
-    title: String
+pub struct Video {
+    pub duration: u32,
+    pub description: String, 
+    pub embed: bool,
+    pub uri: String,
+    pub title: String
 }
 
 #[derive(RustcDecodable, Debug)]
-struct Artist {
-    join: String,
-    name: String,
-    tracks: String,
-    role: String,
-    resource_url: String,
-    id: u32
+pub struct Artist {
+    pub join: String,
+    pub name: String,
+    pub tracks: String,
+    pub role: String,
+    pub resource_url: String,
+    pub id: u32
 }
 
 #[derive(Debug)]
-struct Image {
-    height: u32,
-    width: u32,
-    resource_url: String,
-    type_: String,
-    uri: String,
-    uri150: String
+pub struct Image {
+    pub height: u32,
+    pub width: u32,
+    pub resource_url: String,
+    pub type_: String,
+    pub uri: String,
+    pub uri150: String
 }
 
 #[derive(RustcDecodable, Debug)]
-struct Track {
-    duration: String,
-    position: String,
-    type_: String,
-    title: String
+pub struct Track {
+    pub duration: String,
+    pub position: String,
+    pub type_: String,
+    pub title: String
 }
 
 #[derive(RustcDecodable, Debug)]
 pub struct MasterRelease {
-    styles: Vec<String>,
-    genres: Vec<String>,
-    videos: Vec<Video>,
-    title: String,
-    main_release: u32,
-    main_release_url: String,
-    uri: String,
-    artists: Vec<Artist>,
-    versions_url: String,
-    year: u32,
-    images: Vec<Image>,
-    resource_url: String,
-    tracklist: Vec<Track>,
-    id: u32,
-    data_quality: String
+    pub styles: Vec<String>,
+    pub genres: Vec<String>,
+    pub videos: Vec<Video>,
+    pub title: String,
+    pub main_release: u32,
+    pub main_release_url: String,
+    pub uri: String,
+    pub artists: Vec<Artist>,
+    pub versions_url: String,
+    pub year: u32,
+    pub images: Vec<Image>,
+    pub resource_url: String,
+    pub tracklist: Vec<Track>,
+    pub id: u32,
+    pub data_quality: String
 }
 
 impl<'a> Discogs<'a> {
