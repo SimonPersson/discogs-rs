@@ -7,6 +7,7 @@ mod search;
 mod master;
 
 pub use search::{Search, SearchType};
+pub use master::{MasterRelease};
 use ease::Url;
 
 pub struct Discogs<'a> {
