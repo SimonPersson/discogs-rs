@@ -40,9 +40,9 @@ pub struct Track {
 
 #[derive(RustcDecodable, Debug)]
 pub struct MasterRelease {
-    pub styles: Vec<String>,
-    pub genres: Vec<String>,
-    pub videos: Vec<Video>,
+    pub styles: Option<Vec<String>>,
+    pub genres: Option<Vec<String>>,
+    pub videos: Option<Vec<Video>>,
     pub title: String,
     pub main_release: u32,
     pub main_release_url: String,
