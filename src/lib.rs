@@ -6,9 +6,17 @@ extern crate ease;
 mod search;
 mod master;
 
-pub use search::{Search, SearchType};
-pub use master::{MasterRelease};
+pub use search::{Search, SearchType, Urls, Community, SearchResultElement, Pagination, SearchResult};
+pub use master::{Video, Artist, Track, MasterRelease};
+
 use ease::Url;
+use ease::Error as EaseError;
+
+#[derive(Debug)]
+pub enum Error {
+    HttpError(EaseError),
+    AuthError(String),
+}
 
 pub struct Discogs<'a> {
     token: &'a str,

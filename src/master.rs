@@ -1,5 +1,26 @@
-use super::{Discogs, MASTERS_URL};
-use ease::{RestClient, UserAgent};
+use super::{Discogs, MASTERS_URL, Error};
+use ease::{Request, UserAgent, StatusCode};
+use ease::Error as EaseError;
+
+impl<'a> Discogs<'a> {
+    pub fn master_release(&self, master_id: u32) -> Result<MasterRelease, Error> {
+        let mut url = MASTERS_URL.clone();
+        url.path_mut().expect("Couldn't get masters url path.").push(format!("{}", master_id));
+        Request::new(url)
+            .param("token", self.token)
+            .header(UserAgent(self.user_agent.to_string()))
+            .get()
+            .and_then(|res| res.json_as::<MasterRelease>())
+            .map_err(|ease_err| {
+                match ease_err {
+                    EaseError::UnsuccessfulResponse(ref e)
+                        if e.hyper_response.status == StatusCode::Unauthorized =>
+                            Error::AuthError(e.body.clone()),
+                    _ => Error::HttpError(ease_err),
+                }
+            })
+    }
+}
 
 #[derive(RustcDecodable, Debug)]
 pub struct Video {
@@ -55,17 +76,6 @@ pub struct MasterRelease {
     pub tracklist: Vec<Track>,
     pub id: u32,
     pub data_quality: String
-}
-
-impl<'a> Discogs<'a> {
-    pub fn master_release(&self, master_id: u32) -> Result<MasterRelease, String> {
-        let mut url = MASTERS_URL.clone();
-        url.path_mut().expect("Couldn't get masters url path.").push(format!("{}", master_id));
-        RestClient::new(url)
-            .param("token", self.token)
-            .header(UserAgent(self.user_agent.to_string()))
-            .get_json_as::<MasterRelease>()
-    }
 }
 
 impl ::rustc_serialize::Decodable for Image {

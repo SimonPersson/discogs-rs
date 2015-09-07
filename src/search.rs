@@ -1,5 +1,6 @@
-use super::{Discogs, SEARCH_URL};
-use ease::{RestClient, UserAgent, Url};
+use super::{Discogs, SEARCH_URL, Error};
+use ease::{Request, UserAgent, Url, StatusCode};
+use ease::Error as EaseError;
 
 pub enum SearchType {
     Release,
@@ -112,12 +113,21 @@ impl<'a> Search<'a> {
         self
     }
             
-    pub fn send(self) -> Result<SearchResult, String> {
-        RestClient::new(self.url.clone())
+    pub fn send(self) -> Result<SearchResult, Error> {
+        Request::new(self.url.clone())
             .params(self.params)
             .param("token", self.token)
             .header(UserAgent(self.user_agent.to_string()))
-            .get_json_as::<SearchResult>()
+            .get()
+            .and_then(|res| res.json_as::<SearchResult>())
+            .map_err(|ease_err| {
+                match ease_err {
+                    EaseError::UnsuccessfulResponse(ref e)
+                        if e.hyper_response.status == StatusCode::Unauthorized =>
+                            Error::AuthError(e.body.clone()),
+                    _ => Error::HttpError(ease_err),
+                }
+            })
     }
 }
 

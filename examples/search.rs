@@ -10,8 +10,7 @@ fn main()
         println!("{:#?}", discogs.search()
                                  .query("Have Trumpet, Will Excite")
                                  .search_type(SearchType::Master)
-                                 .send()
-                                 );
+                                 .send());
     } else {
         println!("You must provide a token!");
     }
